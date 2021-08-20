@@ -5,7 +5,22 @@ config.vm.provider "virtualbox" do |vb|
 vb.memory = "4096"
 vb.cpus = 4
 end
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.customize ["modifyvm", :id, "--usb", "on"]
+    vb.customize ["modifyvm", :id, "--usbehci", "on"]
+  end
+
+  # Implement determined configuration attributes
+  config.vm.provider "virtualbox" do |vb|
+    vb.customize ["usbfilter", "add", "0",
+        "--target", :id,
+        "--name", "Digilent USB Device",
+        "--product", "Digilent USB Device"]
+  end
+
 config.disksize.size = '30GB'
 config.ssh.forward_x11 = true
 config.ssh.forward_agent = true
 end
+
